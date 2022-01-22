@@ -1,0 +1,9 @@
+name: EdcariaTournamentPlugin
+version: 1.0
+author: JupiterPi
+main: de.jupiterpi.mc.edcaria.EdcariaTournamentPlugin
+api-version: 1.17
+commands:
+  tournament:
+    description: Tournament-related commands.
+    usage: /tournament create

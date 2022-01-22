@@ -1,0 +1,36 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id 'java-library'
+}
+
+group 'de.jupiterpi.mc.edcaria'
+version '1.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://papermc.io/repo/repository/maven-public/"
+    }
+}
+
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT"
+}
+
+tasks.register("installPlugin") {
+    doLast {
+        copy {
+            from 'build/libs/edcaria-tournament-plugin-1.0-all.jar'
+            into "C:\\Users\\jupit\\OneDrive\\EDCAR\\Edcaria Server\\plugins"
+        }
+        println "Copied jar to plugins folder C:\\Users\\jupit\\OneDrive\\EDCAR\\Edcaria Server\\plugins"
+    }
+}
+
+tasks.register("run") {
+    dependsOn tasks.named("shadowJar")
+    dependsOn tasks.named("installPlugin")
+
+    println "executing server..."
+    "cmd /c start /max cmd.exe /c \"C:\\Users\\jupit\\OneDrive\\EDCAR\\Edcaria Server\\run.bat\"".execute()
+}
