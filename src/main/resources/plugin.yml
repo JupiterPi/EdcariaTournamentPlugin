@@ -5,5 +5,8 @@ main: de.jupiterpi.mc.edcaria.EdcariaTournamentPlugin
 api-version: 1.17
 commands:
   tournament:
-    description: Tournament-related commands.
-    usage: /tournament create
+    description: Tournament-related commands
+    usage: /tournament <create|start>
+  tournament-config:
+    description: Tournament configuration
+    usage: /tournament-config <attribute> [<value>]

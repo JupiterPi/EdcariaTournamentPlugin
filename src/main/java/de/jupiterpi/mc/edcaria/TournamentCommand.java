@@ -16,9 +16,18 @@ public class TournamentCommand implements CommandExecutor {
             if (cmd.equals("create")) {
                 if (EdcariaTournamentPlugin.tournament == null) {
                     EdcariaTournamentPlugin.tournament = Tournament.createTournament();
+                    sender.sendMessage("Created a new Tournament.");
                 } else {
-                    throw new CommandFailedException("Could not create Tournament: There is an active Tournament already!");
+                    throw new CommandFailedException("There is an active Tournament already");
                 }
+                return true;
+            }
+            if (EdcariaTournamentPlugin.tournament == null) {
+                throw new CommandFailedException("There is no active Tournament");
+            }
+            if (cmd.equals("start")) {
+                EdcariaTournamentPlugin.tournament.start();
+                sender.sendMessage("Started Tournament.");
             }
         } catch (CommandFailedException e) {
             sender.sendMessage(ChatColor.RED + e.getMessage());

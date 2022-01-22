@@ -12,6 +12,7 @@ public class EdcariaTournamentPlugin extends JavaPlugin {
         plugin = this;
 
         getCommand("tournament").setExecutor(new TournamentCommand());
+        getCommand("tournament-config").setExecutor(new TournamentConfigurationCommand());
 
         getServer().getConsoleSender().sendMessage(ChatColor.DARK_GREEN + "[EdcariaTournamentPlugin] Tournament plugin enabled");
         super.onEnable();
