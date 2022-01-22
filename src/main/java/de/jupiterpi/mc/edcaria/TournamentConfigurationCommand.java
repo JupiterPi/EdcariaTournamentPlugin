@@ -9,6 +9,11 @@ import org.jetbrains.annotations.NotNull;
 public class TournamentConfigurationCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if (!sender.isOp()) {
+            sender.sendMessage(ChatColor.RED + "Only operators can use this command!");
+            return true;
+        }
+
         if (args.length < 1) return false;
         String attribute = args[0];
         boolean changeValue = args.length >= 2;

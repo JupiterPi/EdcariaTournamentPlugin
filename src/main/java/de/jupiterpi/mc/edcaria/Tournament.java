@@ -11,6 +11,13 @@ import java.util.List;
 public class Tournament {
     private List<Player> players;
     private TournamentConfiguration config = new TournamentConfiguration();
+    private int phase = Phase.CREATED;
+
+    public static class Phase {
+        public static final int CREATED = 0;
+        public static final int PRE = 1;
+        public static final int MAIN = 2;
+    }
 
     private static final boolean bypassPlayerCheck = true;
     public static Tournament createTournament() throws CommandFailedException {
@@ -22,8 +29,16 @@ public class Tournament {
         return tournament;
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     public TournamentConfiguration getConfig() {
         return config;
+    }
+
+    public int getPhase() {
+        return phase;
     }
 
     public void start() {
@@ -40,16 +55,21 @@ public class Tournament {
         for (int i = 0; i < players.size() && i < playerStartPoints.size(); i++) {
             Player player = players.get(i);
             player.setGameMode(GameMode.SURVIVAL);
+            player.getInventory().clear();
+            player.getEnderChest().clear();
             player.setInvulnerable(true);
             player.sendMessage(ChatColor.GRAY + "[Tournament] " + ChatColor.WHITE + "You will be invulnerable for " + config.spawnInvulnerabilityDuration + " seconds. ");
             player.teleport(playerStartPoints.get(i));
         }
         Bukkit.getScheduler().runTaskLater(EdcariaTournamentPlugin.plugin, () -> {
-            for (Player player : EdcariaTournamentPlugin.tournament.players) {
+            phase = Tournament.Phase.MAIN;
+            for (Player player : players) {
                 player.sendMessage(ChatColor.GRAY + "[Tournament] " + ChatColor.WHITE + "Your invulnerability has run out. ");
                 player.setInvulnerable(false);
                 player.setBedSpawnLocation(player.getLocation(), true);
             }
         }, config.spawnInvulnerabilityDuration * 20);
+
+        phase = Phase.PRE;
     }
 }
