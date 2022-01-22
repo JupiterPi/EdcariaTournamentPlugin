@@ -10,3 +10,6 @@ commands:
   tournament-config:
     description: Tournament configuration
     usage: /tournament-config <attribute> [<value>]
+  ec:
+    description: Opens your enderchest.
+    usage: /ec
